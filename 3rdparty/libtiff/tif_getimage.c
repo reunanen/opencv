@@ -624,10 +624,17 @@ gtTileContig(TIFFRGBAImage* img, uint32* raster, uint32 w, uint32 h)
     for (col = 0; col < w; col += tw)
         {
         if (TIFFReadTile(tif, buf, col+img->col_offset,
-                 row+img->row_offset, 0, 0)==(tmsize_t)(-1) && img->stoponerr)
+                 row+img->row_offset, 0, 0)==(tmsize_t)(-1))
             {
-                ret = 0;
-                break;
+                if (img->stoponerr)
+                {
+                    ret = 0;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
             }
 
         pos = ((row+img->row_offset) % th) * TIFFTileRowSize(tif);
