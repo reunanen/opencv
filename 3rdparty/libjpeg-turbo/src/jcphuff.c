@@ -169,7 +169,7 @@ INLINE
 METHODDEF(int)
 count_zeroes(size_t *x)
 {
-  int result;
+  unsigned long result;
 #if defined(HAVE_BUILTIN_CTZL)
   result = __builtin_ctzl(*x);
   *x >>= result;
