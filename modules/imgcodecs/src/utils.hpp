@@ -128,6 +128,7 @@ uchar* FillUniGray( uchar* data, uchar*& line_end, int step, int width3,
                      int& y, int height, int count3, uchar clr );
 
 uchar* FillColorRow8( uchar* data, uchar* indices, int len, PaletteEntry* palette );
+uchar* FillGrayRow8( uchar* data, const uchar* source, int len ); // assumes uniform gray palette
 uchar* FillGrayRow8( uchar* data, uchar* indices, int len, uchar* palette );
 uchar* FillColorRow4( uchar* data, uchar* indices, int len, PaletteEntry* palette );
 uchar* FillGrayRow4( uchar* data, uchar* indices, int len, uchar* palette );

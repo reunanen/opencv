@@ -485,6 +485,14 @@ uchar* FillColorRow8( uchar* data, uchar* indices, int len, PaletteEntry* palett
 }
 
 
+// assumes uniform gray palette
+uchar* FillGrayRow8( uchar* data, const uchar* source, int len )
+{
+    memcpy( data, source, len );
+    return data + len;
+}
+
+
 uchar* FillGrayRow8( uchar* data, uchar* indices, int len, uchar* palette )
 {
     int i;

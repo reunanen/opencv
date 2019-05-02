@@ -191,6 +191,15 @@ bool  BmpDecoder::readHeader()
     return result;
 }
 
+bool is_uniform_gray_palette(uchar gray_palette[256])
+{
+    for (int i = 0; i < 256; ++i) {
+        if (gray_palette[i] != i) {
+            return false;
+        }
+    }
+    return true;
+}
 
 bool  BmpDecoder::readData( Mat& img )
 {
@@ -224,6 +233,8 @@ bool  BmpDecoder::readData( Mat& img )
         _bgr.allocate(m_width*3 + 32);
     }
     uchar *src = _src.data(), *bgr = _bgr.data();
+
+    const bool uniform_gray_palette = !color && is_uniform_gray_palette(gray_palette);
 
     try
     {
@@ -339,6 +350,8 @@ decode_rle4_bad: ;
                     m_strm.getBytes( src, src_pitch );
                     if( color )
                         FillColorRow8( data, src, m_width, m_palette );
+                    else if( uniform_gray_palette )
+                        FillGrayRow8( data, src, m_width );
                     else
                         FillGrayRow8( data, src, m_width, gray_palette );
                 }
@@ -389,6 +402,8 @@ decode_rle4_bad: ;
                         m_strm.getBytes(src, sz);
                         if( color )
                             data = FillColorRow8( data, src, code, m_palette );
+                        else if( uniform_gray_palette )
+                            data = FillGrayRow8( data, src, code );
                         else
                             data = FillGrayRow8( data, src, code, gray_palette );
 
