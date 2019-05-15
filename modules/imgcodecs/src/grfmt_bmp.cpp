@@ -191,7 +191,7 @@ bool  BmpDecoder::readHeader()
     return result;
 }
 
-bool is_uniform_gray_palette(uchar gray_palette[256])
+inline bool is_uniform_gray_palette(uchar gray_palette[256])
 {
     for (int i = 0; i < 256; ++i) {
         if (gray_palette[i] != i) {
