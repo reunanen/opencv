@@ -2103,7 +2103,7 @@ bool CvVideoWriter_MSMF::open( const cv::String& filename, int fourcc,
             {
                 initiated = true;
                 rtStart = 0;
-                MFFrameRateToAverageTimePerFrame((UINT32)fps, 1, &rtDuration);
+                MFFrameRateToAverageTimePerFrame((UINT32)(fps * 1000), 1000, &rtDuration);
                 return true;
             }
         }
